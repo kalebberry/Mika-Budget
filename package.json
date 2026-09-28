@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mlc-ai/web-llm": "^0.2.85",
     "vue": "^3.5.42"
   },
   "devDependencies": {
