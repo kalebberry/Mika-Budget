@@ -1298,9 +1298,10 @@ onMounted(() => {
                 <h3>{{ b.name }}</h3>
                 <span class="muted">{{ formatNextDue(nextDueDate(b)) }}</span>
               </div>
-              <span class="badge" :class="billStatus(b).toLowerCase().replace(/\s+/g, '-')">{{
-                billStatus(b)
-              }}</span
+              <span
+                class="badge"
+                :class="billStatus(b).toLowerCase().replace(/\s+/g, '-')"
+                >{{ billStatus(b) }}</span
               ><strong>{{ money(b.amount) }}</strong
               ><button
                 class="secondary"
@@ -1632,8 +1633,8 @@ onMounted(() => {
           }}
         </p>
         <p v-if="mode === 'Pay bill'" class="muted">
-          This records one expense today and marks this bill paid. Only
-          continue if you have actually paid it.
+          This records one expense today and marks this bill paid. Only continue
+          if you have actually paid it.
         </p>
         <p v-if="mode === 'Add money' || mode === 'Withdraw'" class="muted">
           {{
@@ -1643,12 +1644,25 @@ onMounted(() => {
           }}
           Your total account balance stays the same.
         </p>
-        <label v-if="['Add transaction', 'Add pot', 'Add bill', 'Add budget', 'Edit budget'].includes(mode)"
+        <label
+          v-if="
+            [
+              'Add transaction',
+              'Add pot',
+              'Add bill',
+              'Add budget',
+              'Edit budget',
+            ].includes(mode)
+          "
           >Name<input
             v-model="form.name"
             :required="!['Add budget', 'Edit budget'].includes(mode)"
             maxlength="80"
-            :placeholder="mode.includes('budget') ? 'e.g. Work Lunches or Groceries' : 'e.g. Weekly groceries'"
+            :placeholder="
+              mode.includes('budget')
+                ? 'e.g. Work Lunches or Groceries'
+                : 'e.g. Weekly groceries'
+            "
         /></label>
         <label v-if="mode === 'Add transaction'"
           >Type<select v-model="form.type">

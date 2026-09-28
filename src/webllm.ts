@@ -1,5 +1,14 @@
 import type { MLCEngineInterface, InitProgressReport } from "@mlc-ai/web-llm";
-import { type State, today, totals, spent, paid, isBillPaid, dueDate, nextDueDate } from "./model";
+import {
+  type State,
+  today,
+  totals,
+  spent,
+  paid,
+  isBillPaid,
+  dueDate,
+  nextDueDate,
+} from "./model";
 import type { CompanionExpression } from "./companion";
 
 export interface WebLLMModelOption {
@@ -91,7 +100,10 @@ export function formatFinancialPrompt(state: State): string {
       const currentSpent = spent(state, b.category, currentMonth);
       const remaining = b.limit - currentSpent;
       const percent = Math.round((currentSpent / (b.limit || 1)) * 100);
-      const displayName = b.name && b.name !== b.category ? `${b.name} (${b.category})` : (b.name || b.category);
+      const displayName =
+        b.name && b.name !== b.category
+          ? `${b.name} (${b.category})`
+          : b.name || b.category;
       return `- ${displayName}: spent ${formatCurrency(currentSpent)} of ${formatCurrency(b.limit)} limit (${percent}% used, ${formatCurrency(remaining)} remaining)`;
     })
     .join("\n");
@@ -107,8 +119,7 @@ export function formatFinancialPrompt(state: State): string {
   const upcomingBills = state.bills
     .filter((b) => !isBillPaid(state, b))
     .map(
-      (b) =>
-        `- ${b.name}: ${formatCurrency(b.amount)} (due ${nextDueDate(b)})`,
+      (b) => `- ${b.name}: ${formatCurrency(b.amount)} (due ${nextDueDate(b)})`,
     )
     .join("\n");
 
